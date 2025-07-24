@@ -202,7 +202,7 @@ const Skills = () => {
               description:
                 "Deploying applications with focus on performance, accessibility, and continuous improvement based on user feedback.",
             },
-          ].map((item, index) => (
+          ].map((item) => (
             <motion.div
               key={item.number}
               variants={itemVariants}

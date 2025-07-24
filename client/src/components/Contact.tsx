@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Mail, Github, Linkedin, MapPin, Phone, Send } from "lucide-react";
+import { Mail, Github, Linkedin, MapPin, Send } from "lucide-react";
 import { useState } from "react";
 
 const Contact = () => {
@@ -110,7 +110,7 @@ const Contact = () => {
             variants={itemVariants}
             className="text-6xl md:text-7xl lg:text-8xl font-light text-white leading-[0.9] tracking-tight mb-8"
           >
-            Let's Work
+            Let&apos;s Work
             <br />
             <span className="text-emerald-400">Together</span>
           </motion.h2>
@@ -119,8 +119,9 @@ const Contact = () => {
             variants={itemVariants}
             className="text-xl md:text-2xl text-gray-300 leading-relaxed font-light max-w-3xl mx-auto"
           >
-            Ready to bring your next project to life? I'm always excited to work
-            on innovative projects and collaborate with forward-thinking teams.
+            Ready to bring your next project to life? I&apos;m always excited to
+            work on innovative projects and collaborate with forward-thinking
+            teams.
           </motion.p>
         </motion.div>
 
@@ -139,13 +140,13 @@ const Contact = () => {
               </h3>
               <p className="text-lg text-gray-300 leading-relaxed font-light mb-12">
                 Whether you have a project in mind, want to discuss
-                opportunities, or just want to connect, I'd love to hear from
-                you. Let's create something amazing together.
+                opportunities, or just want to connect, I&apos;d love to hear
+                from you. Let&apos;s create something amazing together.
               </p>
             </div>
 
             <div className="space-y-8">
-              {contactInfo.map((item, index) => (
+              {contactInfo.map((item) => (
                 <motion.div
                   key={item.label}
                   variants={itemVariants}

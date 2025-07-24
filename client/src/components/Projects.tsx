@@ -295,7 +295,7 @@ const Projects = () => {
           animate={inView ? "visible" : "hidden"}
           className="space-y-32"
         >
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <motion.div
               key={project.title}
               variants={itemVariants}

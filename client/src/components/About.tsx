@@ -128,7 +128,7 @@ const About = () => {
                 description:
                   "I deploy ML models into production environments, creating user-friendly web interfaces and ensuring scalable, efficient solutions that solve real-world problems.",
               },
-            ].map((item, index) => (
+            ].map((item) => (
               <motion.div
                 key={item.number}
                 variants={itemVariants}
@@ -143,8 +143,6 @@ const About = () => {
                 <p className="text-gray-300 font-light leading-relaxed text-lg">
                   {item.description}
                 </p>
-
-                
               </motion.div>
             ))}
           </div>
@@ -161,10 +159,10 @@ const About = () => {
             variants={itemVariants}
             className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight mb-20"
           >
-            It's not just about algorithms. It's about impact and creating
-            intelligent solutions
+            It&apos;s not just about algorithms. It&apos;s about impact and
+            creating intelligent solutions
             <br />
-            that make a difference in people's lives.
+            that make a difference in people&apos;s lives.
           </motion.h3>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
@@ -173,7 +171,7 @@ const About = () => {
               { number: "2024", label: "Started AI Journey" },
               { number: "100%", label: "Commitment to Learning" },
               { number: "∞", label: "Passion for Innovation" },
-            ].map((stat, index) => (
+            ].map((stat) => (
               <motion.div
                 key={stat.label}
                 variants={itemVariants}
