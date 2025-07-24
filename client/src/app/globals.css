@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import "tailwindcss";
+
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  --font-inter: "Inter", sans-serif;
+  --font-mono: "Fira Code", monospace;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 102, 255, 0.3);
+  color: #ffffff;
+}
+
+/* Smooth animations */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease,
+    border-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Tech grid background */
+.tech-grid::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: 50px 50px;
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  pointer-events: none;
+}
