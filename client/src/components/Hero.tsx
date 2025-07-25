@@ -19,7 +19,7 @@ const Hero = () => {
     window.addEventListener("mousemove", updateMousePosition);
 
     // Generate particles only on client side to avoid hydration mismatch
-    const generatedParticles = [...Array(40)].map(() => ({
+    const generatedParticles = [...Array(25)].map(() => ({
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
       duration: Math.random() * 3 + 2,
@@ -82,7 +82,7 @@ const Hero = () => {
         {particles.map((particle, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-emerald-400/20 rounded-full"
+            className="absolute w-1 h-1 bg-emerald-400/50 rounded-full"
             style={{
               left: particle.left,
               top: particle.top,

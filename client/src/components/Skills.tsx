@@ -170,53 +170,278 @@ const Skills = () => {
           </div>
         </motion.div>
 
-        {/* Approach section like the inspiration site */}
+        {/* Enhanced Approach section with sequential lighting effects */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid lg:grid-cols-4 gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16"
         >
           {[
             {
-              number: "1.",
+              number: "1",
               title: "Research & Planning",
               description:
                 "I conduct thorough research and planning to understand project requirements and user needs, ensuring a solid foundation for development.",
+              delay: 0,
             },
             {
-              number: "2.",
+              number: "2",
               title: "Design & Prototyping",
               description:
                 "Creating user-centered designs and interactive prototypes to validate concepts and ensure exceptional user experiences.",
+              delay: 0.3,
             },
             {
-              number: "3.",
+              number: "3",
               title: "Development & Testing",
               description:
                 "Building robust, scalable applications using modern technologies while maintaining high code quality and performance standards.",
+              delay: 0.6,
             },
             {
-              number: "4.",
+              number: "4",
               title: "Deployment & Optimization",
               description:
                 "Deploying applications with focus on performance, accessibility, and continuous improvement based on user feedback.",
+              delay: 0.9,
             },
-          ].map((item) => (
+          ].map((item, index) => (
             <motion.div
               key={item.number}
-              variants={itemVariants}
-              className="space-y-6"
+              initial={{ opacity: 0, y: 50 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{
+                duration: 0.8,
+                delay: item.delay,
+                type: "spring",
+                stiffness: 100,
+              }}
+              className="relative group space-y-6"
             >
-              <div className="text-6xl font-light text-emerald-400/30">
-                {item.number}
-              </div>
-              <h3 className="text-2xl font-light text-white leading-tight">
+              {/* Enhanced number with sequential lighting effects */}
+              <motion.div
+                className="relative"
+                initial={{ scale: 0.8 }}
+                animate={inView ? { scale: 1 } : {}}
+                transition={{
+                  duration: 0.6,
+                  delay: item.delay + 0.2,
+                  type: "spring",
+                  stiffness: 200,
+                }}
+              >
+                {/* Glowing background burst */}
+                <motion.div
+                  className="absolute inset-0 w-24 h-24 rounded-full"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={
+                    inView
+                      ? {
+                          scale: [0, 1.5, 1],
+                          opacity: [0, 0.8, 0.3],
+                        }
+                      : {}
+                  }
+                  transition={{
+                    duration: 1.5,
+                    delay: item.delay + 0.4,
+                    ease: "easeOut",
+                  }}
+                  style={{
+                    background: `radial-gradient(circle, 
+                      rgba(52, 211, 153, 0.6) 0%, 
+                      rgba(52, 211, 153, 0.3) 40%, 
+                      transparent 70%)`,
+                  }}
+                />
+
+                {/* Main number with lighting animation */}
+                <motion.div
+                  className="relative text-7xl md:text-8xl lg:text-9xl font-light leading-none"
+                  initial={{
+                    color: "rgba(52, 211, 153, 0.2)",
+                    textShadow: "0 0 0px rgba(52, 211, 153, 0)",
+                    filter: "brightness(0.3)",
+                  }}
+                  animate={
+                    inView
+                      ? {
+                          color: "rgba(52, 211, 153, 1)",
+                          textShadow: [
+                            "0 0 0px rgba(52, 211, 153, 0)",
+                            "0 0 40px rgba(52, 211, 153, 0.8)",
+                            "0 0 25px rgba(52, 211, 153, 0.6)",
+                          ],
+                          filter: [
+                            "brightness(0.3)",
+                            "brightness(1.8)",
+                            "brightness(1.2)",
+                          ],
+                        }
+                      : {}
+                  }
+                  transition={{
+                    duration: 1.2,
+                    delay: item.delay + 0.5,
+                    ease: "easeOut",
+                  }}
+                  whileHover={{
+                    scale: 1.1,
+                    textShadow: "0 0 50px rgba(52, 211, 153, 1)",
+                    filter: "brightness(2)",
+                    transition: { duration: 0.3 },
+                  }}
+                >
+                  {item.number}.
+                </motion.div>
+
+                {/* Pulsing ring effect */}
+                <motion.div
+                  className="absolute inset-0 w-20 h-20 border-2 border-emerald-400/30 rounded-full"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={
+                    inView
+                      ? {
+                          scale: [0.8, 1.3, 1],
+                          opacity: [0, 0.8, 0.3],
+                        }
+                      : {}
+                  }
+                  transition={{
+                    duration: 2.5,
+                    delay: item.delay + 0.7,
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    ease: "easeInOut",
+                  }}
+                />
+
+                {/* Secondary pulsing ring */}
+                <motion.div
+                  className="absolute inset-0 w-16 h-16 border border-emerald-400/20 rounded-full"
+                  initial={{ scale: 1, opacity: 0 }}
+                  animate={
+                    inView
+                      ? {
+                          scale: [1, 1.5, 1.2],
+                          opacity: [0, 0.6, 0.2],
+                        }
+                      : {}
+                  }
+                  transition={{
+                    duration: 3,
+                    delay: item.delay + 1,
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    ease: "easeInOut",
+                  }}
+                />
+
+                {/* Floating particles around number */}
+                <div className="absolute inset-0 w-24 h-24 overflow-hidden pointer-events-none">
+                  {[...Array(6)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-emerald-400/60 rounded-full"
+                      initial={{
+                        x: "50%",
+                        y: "50%",
+                        opacity: 0,
+                        scale: 0,
+                      }}
+                      animate={
+                        inView
+                          ? {
+                              x: `${
+                                50 + Math.cos((i * 60 * Math.PI) / 180) * 40
+                              }%`,
+                              y: `${
+                                50 + Math.sin((i * 60 * Math.PI) / 180) * 40
+                              }%`,
+                              opacity: [0, 1, 0.5, 0],
+                              scale: [0, 1.5, 1, 0],
+                            }
+                          : {}
+                      }
+                      transition={{
+                        duration: 4,
+                        delay: item.delay + 0.8 + i * 0.2,
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        ease: "easeInOut",
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Energy waves */}
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={`wave-${i}`}
+                    className="absolute inset-0 w-32 h-32 border border-emerald-400/10 rounded-full"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={
+                      inView
+                        ? {
+                            scale: [0, 2, 3],
+                            opacity: [0, 0.3, 0],
+                          }
+                        : {}
+                    }
+                    transition={{
+                      duration: 3,
+                      delay: item.delay + 1.2 + i * 0.8,
+                      repeat: Infinity,
+                      repeatType: "loop",
+                      ease: "easeOut",
+                    }}
+                  />
+                ))}
+              </motion.div>
+
+              {/* Enhanced title */}
+              <motion.h3
+                className="text-2xl lg:text-3xl font-light text-white leading-tight group-hover:text-emerald-400 transition-colors duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: item.delay + 0.8 }}
+              >
                 {item.title}
-              </h3>
-              <p className="text-gray-300 font-light leading-relaxed">
+              </motion.h3>
+
+              {/* Enhanced description */}
+              <motion.p
+                className="text-gray-300 font-light leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: item.delay + 1 }}
+              >
                 {item.description}
-              </p>
+              </motion.p>
+
+              {/* Connection line to next step */}
+              {index < 3 && (
+                <motion.div
+                  className="absolute top-12 -right-6 lg:-right-8 w-12 lg:w-16 h-px bg-gradient-to-r from-emerald-400/50 to-emerald-400/20 hidden lg:block"
+                  initial={{ scaleX: 0, opacity: 0 }}
+                  animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+                  transition={{
+                    duration: 0.8,
+                    delay: item.delay + 1.4,
+                    ease: "easeOut",
+                  }}
+                  style={{ transformOrigin: "left" }}
+                />
+              )}
+
+              {/* Hover glow effect */}
+              <motion.div
+                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{
+                  boxShadow: "0 0 60px rgba(52, 211, 153, 0.15)",
+                }}
+              />
             </motion.div>
           ))}
         </motion.div>
