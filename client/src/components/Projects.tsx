@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import {
   Github,
   ExternalLink,
@@ -163,28 +162,25 @@ const Projects = () => {
   ];
 
   // Project-specific transforms with better spacing
-  const getProjectTransforms = (index: number) => {
-    const start = 0.2 + index * 0.22;
-    const end = start + 0.18;
-
-    return {
-      y: useTransform(
-        smoothProgress,
-        [start - 0.05, start, end, end + 0.05],
-        [100, 0, 0, -100]
-      ),
-      opacity: useTransform(
-        smoothProgress,
-        [start - 0.05, start, end, end + 0.05],
-        [0, 1, 1, 0]
-      ),
-      scale: useTransform(
-        smoothProgress,
-        [start, start + 0.05, end - 0.05, end],
-        [0.9, 1, 1, 0.9]
-      ),
-    };
+  const project0Transforms = {
+    y: useTransform(smoothProgress, [0.15, 0.2, 0.38, 0.43], [100, 0, 0, -100]),
+    opacity: useTransform(smoothProgress, [0.15, 0.2, 0.38, 0.43], [0, 1, 1, 0]),
+    scale: useTransform(smoothProgress, [0.2, 0.25, 0.33, 0.38], [0.9, 1, 1, 0.9])
   };
+
+  const project1Transforms = {
+    y: useTransform(smoothProgress, [0.37, 0.42, 0.6, 0.65], [100, 0, 0, -100]),
+    opacity: useTransform(smoothProgress, [0.37, 0.42, 0.6, 0.65], [0, 1, 1, 0]),
+    scale: useTransform(smoothProgress, [0.42, 0.47, 0.55, 0.6], [0.9, 1, 1, 0.9])
+  };
+
+  const project2Transforms = {
+    y: useTransform(smoothProgress, [0.59, 0.64, 0.82, 0.87], [100, 0, 0, -100]),
+    opacity: useTransform(smoothProgress, [0.59, 0.64, 0.82, 0.87], [0, 1, 1, 0]),
+    scale: useTransform(smoothProgress, [0.64, 0.69, 0.77, 0.82], [0.9, 1, 1, 0.9])
+  };
+
+  const projectTransforms = [project0Transforms, project1Transforms, project2Transforms];
 
   // Track active project based on scroll
   useEffect(() => {
@@ -269,7 +265,7 @@ const Projects = () => {
 
         {/* Projects Showcase */}
         {projects.map((project, index) => {
-          const transforms = getProjectTransforms(index);
+          const transforms = projectTransforms[index];
           const isActive = activeProject === index;
 
           return (
@@ -564,7 +560,8 @@ const Projects = () => {
 
             <p className="text-xl text-gray-300 font-light mb-12 max-w-2xl mx-auto">
               These projects represent my passion for creating meaningful
-              digital solutions. Let's build something extraordinary together.
+              digital solutions. Let&apos;s build something extraordinary
+              together.
             </p>
 
             <motion.a
