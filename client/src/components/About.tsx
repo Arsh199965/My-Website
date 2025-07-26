@@ -3,14 +3,17 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState, memo } from "react";
+import useIsMobile from "../utils/useIsMobile";
 
 const About = memo(() => {
+  const isMobile = useIsMobile();
+  
   const [ref, inView] = useInView({
     triggerOnce: false, // Changed to false so animations replay when coming back into view
     threshold: 0.1,
   });
   const [cardsref, cardsInView] = useInView({
-    triggerOnce: false,
+    triggerOnce: isMobile, // Trigger once on mobile, multiple times on desktop
     threshold: 0.1,
   });
   // State for particle positions to avoid hydration mismatch

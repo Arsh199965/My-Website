@@ -3,14 +3,17 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { memo, useMemo } from "react";
+import useIsMobile from "../utils/useIsMobile";
 
 const Skills = memo(() => {
+  const isMobile = useIsMobile();
+  
   const [ref, inView] = useInView({
     triggerOnce: false,
     threshold: 0.1,
   });
   const [cardsref, cardsInView] = useInView({
-    triggerOnce: false,
+    triggerOnce: isMobile, // Trigger once on mobile, multiple times on desktop
     threshold: 0.1,
   });
   // All skills in a flat array for the conveyor belt - memoized
