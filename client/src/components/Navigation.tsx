@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { Menu, X } from "lucide-react";
 
-const Navigation = () => {
+const Navigation = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -108,6 +108,8 @@ const Navigation = () => {
       </div>
     </motion.nav>
   );
-};
+});
+
+Navigation.displayName = "Navigation";
 
 export default Navigation;

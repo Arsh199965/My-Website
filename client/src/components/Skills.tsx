@@ -2,46 +2,53 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { memo, useMemo } from "react";
 
-const Skills = () => {
+const Skills = memo(() => {
   const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
+    triggerOnce: false,
+    threshold: 0.3,
   });
+  const [cardsref, cardsInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.3,
+  });
+  // All skills in a flat array for the conveyor belt - memoized
+  const allSkills = useMemo(
+    () => [
+      "Python",
+      "PyTorch",
+      "Scikit-learn",
+      "Pandas",
+      "NumPy",
+      "LangChain",
+      "LangGraph",
+      "C",
+      "JavaScript",
+      "TypeScript",
+      "SQL",
+      "Next.js",
+      "React",
+      "React Native",
+      "FastAPI",
+      "Flask",
+      "GSAP",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "MongoDB",
+      "OpenAI Whisper",
+      "Google Gemini",
+      "TF-IDF",
+      "Random Forest",
+      "cGAN",
+      "Streamlit",
+      "Git & GitHub",
+    ],
+    []
+  );
 
-  // All skills in a flat array for the conveyor belt
-  const allSkills = [
-    "Python",
-    "PyTorch",
-    "Scikit-learn",
-    "Pandas",
-    "NumPy",
-    "LangChain",
-    "LangGraph",
-    "C",
-    "JavaScript",
-    "TypeScript",
-    "SQL",
-    "Next.js",
-    "React",
-    "React Native",
-    "FastAPI",
-    "Flask",
-    "GSAP",
-    "Tailwind CSS",
-    "PostgreSQL",
-    "MongoDB",
-    "OpenAI Whisper",
-    "Google Gemini",
-    "TF-IDF",
-    "Random Forest",
-    "cGAN",
-    "Streamlit",
-    "Git & GitHub",
-  ];
-
-  // Duplicate the array for seamless loop
-  const skills = [...allSkills, ...allSkills];
+  // Duplicate the array for seamless loop - memoized
+  const skills = useMemo(() => [...allSkills, ...allSkills], [allSkills]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -210,7 +217,7 @@ const Skills = () => {
             <motion.div
               key={item.number}
               initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              animate={cardsInView ? { opacity: 1, y: 0 } : {}}
               transition={{
                 duration: 0.8,
                 delay: item.delay,
@@ -222,8 +229,9 @@ const Skills = () => {
               {/* Enhanced number with sequential lighting effects */}
               <motion.div
                 className="relative"
+                ref={cardsref}
                 initial={{ scale: 0.8 }}
-                animate={inView ? { scale: 1 } : {}}
+                animate={cardsInView ? { scale: 1 } : {}}
                 transition={{
                   duration: 0.6,
                   delay: item.delay + 0.2,
@@ -236,7 +244,7 @@ const Skills = () => {
                   className="absolute inset-0 w-24 h-24 rounded-full"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={
-                    inView
+                    cardsInView
                       ? {
                           scale: [0, 1.5, 1],
                           opacity: [0, 0.8, 0.3],
@@ -265,7 +273,7 @@ const Skills = () => {
                     filter: "brightness(0.3)",
                   }}
                   animate={
-                    inView
+                    cardsInView
                       ? {
                           color: "rgba(52, 211, 153, 1)",
                           textShadow: [
@@ -301,7 +309,7 @@ const Skills = () => {
                   className="absolute inset-0 w-20 h-20 border-2 border-emerald-400/30 rounded-full"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={
-                    inView
+                    cardsInView
                       ? {
                           scale: [0.8, 1.3, 1],
                           opacity: [0, 0.8, 0.3],
@@ -322,7 +330,7 @@ const Skills = () => {
                   className="absolute inset-0 w-16 h-16 border border-emerald-400/20 rounded-full"
                   initial={{ scale: 1, opacity: 0 }}
                   animate={
-                    inView
+                    cardsInView
                       ? {
                           scale: [1, 1.5, 1.2],
                           opacity: [0, 0.6, 0.2],
@@ -351,7 +359,7 @@ const Skills = () => {
                         scale: 0,
                       }}
                       animate={
-                        inView
+                        cardsInView
                           ? {
                               x: `${
                                 50 + Math.cos((i * 60 * Math.PI) / 180) * 40
@@ -382,7 +390,7 @@ const Skills = () => {
                     className="absolute inset-0 w-32 h-32 border border-emerald-400/10 rounded-full"
                     initial={{ scale: 0, opacity: 0 }}
                     animate={
-                      inView
+                      cardsInView
                         ? {
                             scale: [0, 2, 3],
                             opacity: [0, 0.3, 0],
@@ -404,7 +412,7 @@ const Skills = () => {
               <motion.h3
                 className="text-2xl lg:text-3xl font-light text-white leading-tight group-hover:text-emerald-400 transition-colors duration-300"
                 initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
+                animate={cardsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: item.delay + 0.8 }}
               >
                 {item.title}
@@ -414,7 +422,7 @@ const Skills = () => {
               <motion.p
                 className="text-gray-300 font-light leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
                 initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
+                animate={cardsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: item.delay + 1 }}
               >
                 {item.description}
@@ -425,7 +433,7 @@ const Skills = () => {
                 <motion.div
                   className="absolute top-12 -right-6 lg:-right-8 w-12 lg:w-16 h-px bg-gradient-to-r from-emerald-400/50 to-emerald-400/20 hidden lg:block"
                   initial={{ scaleX: 0, opacity: 0 }}
-                  animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+                  animate={cardsInView ? { scaleX: 1, opacity: 1 } : {}}
                   transition={{
                     duration: 0.8,
                     delay: item.delay + 1.4,
@@ -450,7 +458,7 @@ const Skills = () => {
         <motion.div
           variants={itemVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={cardsInView ? "visible" : "hidden"}
           className="mt-32 text-center"
         >
           <p className="text-xl md:text-2xl text-gray-300 leading-relaxed font-light max-w-4xl mx-auto">
@@ -461,6 +469,8 @@ const Skills = () => {
       </div>
     </section>
   );
-};
+});
+
+Skills.displayName = "Skills";
 
 export default Skills;

@@ -2,20 +2,20 @@
 
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, memo, useCallback } from "react";
 
-const Hero = () => {
+const Hero = memo(() => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   const [particles, setParticles] = useState<
     Array<{ left: string; top: string; duration: number; delay: number }>
   >([]);
 
-  useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
+  const updateMousePosition = useCallback((e: MouseEvent) => {
+    setMousePosition({ x: e.clientX, y: e.clientY });
+  }, []);
 
+  useEffect(() => {
     window.addEventListener("mousemove", updateMousePosition);
 
     // Generate particles only on client side to avoid hydration mismatch
@@ -34,28 +34,31 @@ const Hero = () => {
       window.removeEventListener("mousemove", updateMousePosition);
       clearTimeout(timer);
     };
-  }, []);
+  }, [updateMousePosition]);
 
-  const socialLinks = [
-    {
-      name: "GitHub",
-      icon: Github,
-      href: "https://github.com/arsh199965",
-      label: "View my code",
-    },
-    {
-      name: "LinkedIn",
-      icon: Linkedin,
-      href: "https://linkedin.com/in/arsh-ahmad-2bb070244",
-      label: "Connect professionally",
-    },
-    {
-      name: "Email",
-      icon: Mail,
-      href: "mailto:arsh199965@gmail.com",
-      label: "Get in touch",
-    },
-  ];
+  const socialLinks = useMemo(
+    () => [
+      {
+        name: "GitHub",
+        icon: Github,
+        href: "https://github.com/arsh199965",
+        label: "View my code",
+      },
+      {
+        name: "LinkedIn",
+        icon: Linkedin,
+        href: "https://linkedin.com/in/arsh-ahmad-2bb070244",
+        label: "Connect professionally",
+      },
+      {
+        name: "Email",
+        icon: Mail,
+        href: "mailto:arsh199965@gmail.com",
+        label: "Get in touch",
+      },
+    ],
+    []
+  );
 
   return (
     <section className="relative min-h-screen bg-black overflow-hidden flex items-center">
@@ -527,6 +530,8 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+});
+
+Hero.displayName = "Hero";
 
 export default Hero;

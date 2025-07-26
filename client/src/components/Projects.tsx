@@ -7,14 +7,13 @@ import {
   Zap,
   Brain,
   Utensils,
-  ArrowRight,
   Code2,
   Database,
   Cpu,
 } from "lucide-react";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo, memo } from "react";
 
-const Projects = () => {
+const Projects = memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeProject, setActiveProject] = useState(0);
   const [particles, setParticles] = useState<
@@ -46,145 +45,178 @@ const Projects = () => {
   // Transform values for different sections
   const titleY = useTransform(smoothProgress, [0, 0.15], [100, 0]);
   const titleOpacity = useTransform(smoothProgress, [0, 0.15], [0, 1]);
-
-  // Progress bar
   const progressWidth = useTransform(
     smoothProgress,
     [0.15, 0.9],
     ["0%", "100%"]
   );
 
-  const projects = [
-    {
-      id: 0,
-      title: "FridgePilot",
-      subtitle: "Smart Pantry Management",
-      description:
-        "Reducing food waste by 70% through AI-powered expiry prediction and smart recipe recommendations",
-      fullDescription:
-        "A revolutionary full-stack application that transforms how households manage food inventory. Using Random Forest Classifier for ML-powered expiry predictions and TF-IDF algorithms for intelligent recipe suggestions based on available ingredients.",
-      technologies: [
-        "Python",
-        "TypeScript",
-        "Next.js",
-        "Scikit-learn",
-        "Flask",
-        "PostgreSQL",
-      ],
-      github: "https://github.com/Arsh199965/FridgePilot",
-      live: null,
-      icon: Utensils,
-      image: "/FridgePilot.png",
-      color: "emerald",
-      gradient: "from-emerald-400 to-green-600",
-      stats: [
-        { label: "Food Waste Reduction", value: "70%" },
-        { label: "ML Accuracy", value: "94%" },
-        { label: "Recipe Database", value: "10K+" },
-      ],
-      features: [
-        "ML-Powered Predictions",
-        "Smart Notifications",
-        "Recipe Engine",
-        "Inventory Tracking",
-      ],
-      primaryTech: { icon: Database, name: "Machine Learning" },
-    },
-    {
-      id: 1,
-      title: "Never Forget",
-      subtitle: "AI Memory Assistant",
-      description:
-        "Empowering individuals with memory challenges through voice transcription and AI summarization",
-      fullDescription:
-        "An assistive mobile application featuring OpenAI Whisper for multi-language transcription, Google Gemini for intelligent summarization, and an accessibility-first design with integrated memory chatbot.",
-      technologies: [
-        "React Native",
-        "Node.js",
-        "Express",
-        "MongoDB",
-        "OpenAI Whisper",
-        "Google Gemini",
-      ],
-      github: "https://github.com/arsh199965",
-      live: "https://never-forget-xi.vercel.app/",
-      icon: Brain,
-      image: "/NeverForget.png",
-      color: "blue",
-      gradient: "from-blue-400 to-purple-600",
-      stats: [
-        { label: "Languages Supported", value: "50+" },
-        { label: "Transcription Accuracy", value: "97%" },
-        { label: "User Retention", value: "89%" },
-      ],
-      features: [
-        "Voice Recognition",
-        "AI Summarization",
-        "Multi-language Support",
-        "Memory Chatbot",
-      ],
-      primaryTech: { icon: Cpu, name: "AI Integration" },
-    },
-    {
-      id: 2,
-      title: "Digit Generator",
-      subtitle: "Handwritten AI Art",
-      description:
-        "Creating custom handwritten digits on demand using conditional GAN architecture",
-      fullDescription:
-        "A conditional Generative Adversarial Network built from scratch in PyTorch to generate specified handwritten digits (0-9). Features real-time generation with interactive Streamlit interface.",
-      technologies: [
-        "Python",
-        "PyTorch",
-        "Streamlit",
-        "cGAN",
-        "Adam Optimizer",
-      ],
-      github: "https://github.com/arsh199965/handwrittendigitgen",
-      live: "https://writethedigits.streamlit.app",
-      icon: Zap,
-      image: "/HandWrittenDigGen.png",
-      color: "orange",
-      gradient: "from-orange-400 to-red-600",
-      stats: [
-        { label: "Generation Speed", value: "<1s" },
-        { label: "Model Accuracy", value: "96%" },
-        { label: "Unique Variations", value: "∞" },
-      ],
-      features: [
-        "Real-time Generation",
-        "Interactive UI",
-        "Custom Styling",
-        "Export Options",
-      ],
-      primaryTech: { icon: Code2, name: "Deep Learning" },
-    },
-  ];
+  const projects = useMemo(
+    () => [
+      {
+        id: 0,
+        title: "FridgePilot",
+        subtitle: "Smart Pantry Management",
+        description:
+          "Reducing food waste by 70% through AI-powered expiry prediction and smart recipe recommendations",
+        fullDescription:
+          "A revolutionary full-stack application that transforms how households manage food inventory. Using Random Forest Classifier for ML-powered expiry predictions and TF-IDF algorithms for intelligent recipe suggestions based on available ingredients.",
+        technologies: [
+          "Python",
+          "TypeScript",
+          "Next.js",
+          "Scikit-learn",
+          "Flask",
+          "PostgreSQL",
+        ],
+        github: "https://github.com/Arsh199965/FridgePilot",
+        live: null,
+        icon: Utensils,
+        image: "/FridgePilot.png",
+        color: "emerald",
+        gradient: "from-emerald-400 to-green-600",
+        stats: [
+          { label: "Food Waste Reduction", value: "70%" },
+          { label: "ML Accuracy", value: "94%" },
+          { label: "Recipe Database", value: "10K+" },
+        ],
+        features: [
+          "ML-Powered Predictions",
+          "Smart Notifications",
+          "Recipe Engine",
+          "Inventory Tracking",
+        ],
+        primaryTech: { icon: Database, name: "Machine Learning" },
+      },
+      {
+        id: 1,
+        title: "Never Forget",
+        subtitle: "AI Memory Assistant",
+        description:
+          "Empowering individuals with memory challenges through voice transcription and AI summarization",
+        fullDescription:
+          "An assistive mobile application featuring OpenAI Whisper for multi-language transcription, Google Gemini for intelligent summarization, and an accessibility-first design with integrated memory chatbot.",
+        technologies: [
+          "React Native",
+          "Node.js",
+          "Express",
+          "MongoDB",
+          "OpenAI Whisper",
+          "Google Gemini",
+        ],
+        github: "https://github.com/arsh199965",
+        live: "https://never-forget-xi.vercel.app/",
+        icon: Brain,
+        image: "/NeverForget.png",
+        color: "blue",
+        gradient: "from-blue-400 to-purple-600",
+        stats: [
+          { label: "Languages Supported", value: "50+" },
+          { label: "Transcription Accuracy", value: "97%" },
+          { label: "User Retention", value: "89%" },
+        ],
+        features: [
+          "Voice Recognition",
+          "AI Summarization",
+          "Multi-language Support",
+          "Memory Chatbot",
+        ],
+        primaryTech: { icon: Cpu, name: "AI Integration" },
+      },
+      {
+        id: 2,
+        title: "Digit Generator",
+        subtitle: "Handwritten AI Art",
+        description:
+          "Creating custom handwritten digits on demand using conditional GAN architecture",
+        fullDescription:
+          "A conditional Generative Adversarial Network built from scratch in PyTorch to generate specified handwritten digits (0-9). Features real-time generation with interactive Streamlit interface.",
+        technologies: [
+          "Python",
+          "PyTorch",
+          "Streamlit",
+          "cGAN",
+          "Adam Optimizer",
+        ],
+        github: "https://github.com/arsh199965/handwrittendigitgen",
+        live: "https://writethedigits.streamlit.app",
+        icon: Zap,
+        image: "/HandWrittenDigGen.png",
+        color: "orange",
+        gradient: "from-orange-400 to-red-600",
+        stats: [
+          { label: "Generation Speed", value: "<1s" },
+          { label: "Model Accuracy", value: "96%" },
+          { label: "Unique Variations", value: "∞" },
+        ],
+        features: [
+          "Real-time Generation",
+          "Interactive UI",
+          "Custom Styling",
+          "Export Options",
+        ],
+        primaryTech: { icon: Code2, name: "Deep Learning" },
+      },
+    ],
+    []
+  );
 
   // Project-specific transforms with better spacing
   const project0Transforms = {
     y: useTransform(smoothProgress, [0.15, 0.2, 0.38, 0.43], [100, 0, 0, -100]),
-    opacity: useTransform(smoothProgress, [0.15, 0.2, 0.38, 0.43], [0, 1, 1, 0]),
-    scale: useTransform(smoothProgress, [0.2, 0.25, 0.33, 0.38], [0.9, 1, 1, 0.9])
+    opacity: useTransform(
+      smoothProgress,
+      [0.15, 0.2, 0.38, 0.43],
+      [0, 1, 1, 0]
+    ),
+    scale: useTransform(
+      smoothProgress,
+      [0.2, 0.25, 0.33, 0.38],
+      [0.9, 1, 1, 0.9]
+    ),
   };
 
   const project1Transforms = {
     y: useTransform(smoothProgress, [0.37, 0.42, 0.6, 0.65], [100, 0, 0, -100]),
-    opacity: useTransform(smoothProgress, [0.37, 0.42, 0.6, 0.65], [0, 1, 1, 0]),
-    scale: useTransform(smoothProgress, [0.42, 0.47, 0.55, 0.6], [0.9, 1, 1, 0.9])
+    opacity: useTransform(
+      smoothProgress,
+      [0.37, 0.42, 0.6, 0.65],
+      [0, 1, 1, 0]
+    ),
+    scale: useTransform(
+      smoothProgress,
+      [0.42, 0.47, 0.55, 0.6],
+      [0.9, 1, 1, 0.9]
+    ),
   };
 
   const project2Transforms = {
-    y: useTransform(smoothProgress, [0.59, 0.64, 0.82, 0.87], [100, 0, 0, -100]),
-    opacity: useTransform(smoothProgress, [0.59, 0.64, 0.82, 0.87], [0, 1, 1, 0]),
-    scale: useTransform(smoothProgress, [0.64, 0.69, 0.77, 0.82], [0.9, 1, 1, 0.9])
+    y: useTransform(
+      smoothProgress,
+      [0.59, 0.64, 0.82, 0.87],
+      [100, 0, 0, -100]
+    ),
+    opacity: useTransform(
+      smoothProgress,
+      [0.59, 0.64, 0.82, 0.87],
+      [0, 1, 1, 0]
+    ),
+    scale: useTransform(
+      smoothProgress,
+      [0.64, 0.69, 0.77, 0.82],
+      [0.9, 1, 1, 0.9]
+    ),
   };
 
-  const projectTransforms = [project0Transforms, project1Transforms, project2Transforms];
+  const projectTransforms = [
+    project0Transforms,
+    project1Transforms,
+    project2Transforms,
+  ];
 
   // Track active project based on scroll
   useEffect(() => {
-    const unsubscribe = smoothProgress.onChange((latest) => {
+    const unsubscribe = smoothProgress.on("change", (latest) => {
       if (latest > 0.2 && latest < 0.42) setActiveProject(0);
       else if (latest >= 0.42 && latest < 0.64) setActiveProject(1);
       else if (latest >= 0.64 && latest < 0.86) setActiveProject(2);
@@ -205,6 +237,7 @@ const Projects = () => {
       <motion.section
         ref={containerRef}
         className="relative min-h-[400vh] bg-black overflow-hidden"
+        style={{ position: "relative" }}
       >
         {/* Floating Elements - Simplified */}
         <div className="fixed inset-0 pointer-events-none">
@@ -533,53 +566,11 @@ const Projects = () => {
             </div>
           );
         })}
-
-        {/* Final Section */}
-        <div className="sticky top-0 h-screen flex items-center justify-center">
-          <motion.div
-            className="text-center max-w-4xl mx-auto px-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <motion.p
-              className="text-emerald-400 text-sm font-medium tracking-[0.2em] uppercase mb-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              Explore More
-            </motion.p>
-
-            <h2 className="text-5xl md:text-6xl font-light text-white mb-8 tracking-tight">
-              Ready to
-              <span className="block text-emerald-400 font-medium">
-                Collaborate?
-              </span>
-            </h2>
-
-            <p className="text-xl text-gray-300 font-light mb-12 max-w-2xl mx-auto">
-              These projects represent my passion for creating meaningful
-              digital solutions. Let&apos;s build something extraordinary
-              together.
-            </p>
-
-            <motion.a
-              href="https://github.com/arsh199965"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-emerald-400 text-black rounded-lg font-medium text-lg transition-all duration-300"
-              whileHover={{ scale: 1.05, backgroundColor: "#10b981" }}
-              whileTap={{ scale: 0.95 }}
-            >
-              View All Projects
-              <ArrowRight className="w-5 h-5" />
-            </motion.a>
-          </motion.div>
-        </div>
       </motion.section>
     </div>
   );
-};
+});
+
+Projects.displayName = "Projects";
 
 export default Projects;

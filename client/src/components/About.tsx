@@ -2,20 +2,23 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 
-const About = () => {
+const About = memo(() => {
   const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
+    triggerOnce: false, // Changed to false so animations replay when coming back into view
+    threshold: 0.3,
   });
-
+  const [cardsref, cardsInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.3,
+  });
   // State for particle positions to avoid hydration mismatch
   const [particlePositions, setParticlePositions] = useState<number[][]>([]);
 
   // Initialize particle positions on client side only
   useEffect(() => {
-    const positions = Array.from({ length: 4 }, () => 
+    const positions = Array.from({ length: 4 }, () =>
       Array.from({ length: 3 }, () => Math.random() * 100)
     );
     setParticlePositions(positions);
@@ -106,10 +109,7 @@ const About = () => {
             <p className="text-emerald-400 text-sm font-medium tracking-[0.2em] uppercase ">
               Approach
             </p>
-
           </motion.div>
-
-          
         </motion.div>
 
         {/* Narrative quote section */}
@@ -162,57 +162,62 @@ const About = () => {
           {/* Staggered stats cards inspired by the image */}
           <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {[
-              { 
-                number: "10+", 
+              {
+                number: "10+",
                 label: "ML Projects Built",
                 description: "From data preprocessing to model deployment",
                 delay: 0,
-                position: "translate-y-0"
+                position: "translate-y-0",
               },
-              { 
-                number: "15+", 
-                label: "Technologies Mastered", 
+              {
+                number: "15+",
+                label: "Technologies Mastered",
                 description: "Across ML, AI, and Full-Stack Development",
                 delay: 0.1,
-                position: "translate-y-8"
+                position: "translate-y-8",
               },
-              { 
-                number: "4+", 
-                label: "Years of Programming", 
+              {
+                number: "4+",
+                label: "Years of Programming",
                 description: "Continuous learning and building",
                 delay: 0.2,
-                position: "translate-y-16"
+                position: "translate-y-16",
               },
-              { 
-                number: "∞", 
-                label: "Passion for Innovation", 
+              {
+                number: "∞",
+                label: "Passion for Innovation",
                 description: "Always pushing boundaries",
                 delay: 0.3,
-                position: "translate-y-4"
+                position: "translate-y-4",
               },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ 
-                  opacity: 0, 
+                ref={cardsref}
+                initial={{
+                  opacity: 0,
                   y: 0,
-                  x: index % 2 === 0 ? -50 : 50
+                  x: index % 2 === 0 ? -50 : 50,
                 }}
-                animate={inView ? { 
-                  opacity: 1, 
-                  y: 0,
-                  x: 0
-                } : {}}
-                transition={{ 
-                  duration: 0.8, 
+                animate={
+                  cardsInView
+                    ? {
+                        opacity: 1,
+                        y: 0,
+                        x: 0,
+                      }
+                    : {}
+                }
+                transition={{
+                  duration: 0.8,
                   delay: stat.delay,
                   type: "spring",
-                  stiffness: 100
+                  stiffness: 100,
                 }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
                   y: -10,
-                  transition: { duration: 0.3 }
+                  transition: { duration: 0.3 },
                 }}
                 className={`relative group ${stat.position}`}
               >
@@ -225,51 +230,52 @@ const About = () => {
                       background: `linear-gradient(135deg, 
                         rgba(52, 211, 153, 0.05) 0%, 
                         rgba(16, 185, 129, 0.05) 50%, 
-                        rgba(5, 150, 105, 0.05) 100%)`
+                        rgba(5, 150, 105, 0.05) 100%)`,
                     }}
                   />
-                  
+
                   {/* Floating particles effect */}
                   <div className="absolute inset-0 overflow-hidden">
-                    {particlePositions[index] && particlePositions[index].map((xPosition, i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute w-1 h-1 bg-emerald-400/30 rounded-full"
-                        initial={{ 
-                          x: xPosition + "%", 
-                          y: "100%",
-                          opacity: 0 
-                        }}
-                        animate={{
-                          y: "-10px",
-                          opacity: [0, 1, 0],
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          delay: i * 0.5 + stat.delay,
-                          ease: "easeOut"
-                        }}
-                      />
-                    ))}
+                    {particlePositions[index] &&
+                      particlePositions[index].map((xPosition, i) => (
+                        <motion.div
+                          key={i}
+                          className="absolute w-1 h-1 bg-emerald-400/30 rounded-full"
+                          initial={{
+                            x: xPosition + "%",
+                            y: "100%",
+                            opacity: 0,
+                          }}
+                          animate={{
+                            y: "-10px",
+                            opacity: [0, 1, 0],
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            delay: i * 0.5 + stat.delay,
+                            ease: "easeOut",
+                          }}
+                        />
+                      ))}
                   </div>
 
                   {/* Number with counter animation */}
-                  <motion.div 
+                  <motion.div
                     className="relative text-6xl md:text-7xl lg:text-8xl font-light text-emerald-400 mb-4 leading-none"
                     initial={{ scale: 0.8, opacity: 0 }}
-                    animate={inView ? { scale: 1, opacity: 1 } : {}}
-                    transition={{ 
-                      duration: 0.6, 
+                    animate={cardsInView ? { scale: 1, opacity: 1 } : {}}
+                    transition={{
+                      duration: 0.6,
                       delay: stat.delay + 0.2,
                       type: "spring",
-                      stiffness: 200
+                      stiffness: 200,
                     }}
                   >
                     <motion.span
-                      whileHover={{ 
+                      whileHover={{
                         textShadow: "0 0 20px rgba(52, 211, 153, 0.5)",
-                        scale: 1.1
+                        scale: 1.1,
                       }}
                       transition={{ duration: 0.3 }}
                     >
@@ -278,20 +284,20 @@ const About = () => {
                   </motion.div>
 
                   {/* Label */}
-                  <motion.div 
+                  <motion.div
                     className="relative text-white font-medium text-xl lg:text-2xl mb-3 leading-tight"
                     initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    animate={cardsInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: stat.delay + 0.4 }}
                   >
                     {stat.label}
                   </motion.div>
 
                   {/* Description */}
-                  <motion.div 
+                  <motion.div
                     className="relative text-gray-400 font-light text-sm lg:text-base leading-relaxed"
                     initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    animate={cardsInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: stat.delay + 0.6 }}
                   >
                     {stat.description}
@@ -301,7 +307,7 @@ const About = () => {
                   <motion.div
                     className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     style={{
-                      boxShadow: "0 0 50px rgba(52, 211, 153, 0.1)"
+                      boxShadow: "0 0 50px rgba(52, 211, 153, 0.1)",
                     }}
                   />
                 </div>
@@ -311,7 +317,7 @@ const About = () => {
                   <motion.div
                     className="absolute top-1/2 -right-4 lg:-right-6 w-8 lg:w-12 h-px bg-gradient-to-r from-emerald-400/50 to-transparent hidden lg:block"
                     initial={{ scaleX: 0 }}
-                    animate={inView ? { scaleX: 1 } : {}}
+                    animate={cardsInView ? { scaleX: 1 } : {}}
                     transition={{ duration: 0.8, delay: stat.delay + 0.8 }}
                   />
                 )}
@@ -323,7 +329,7 @@ const About = () => {
           <motion.div
             className="text-center mt-20"
             initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={cardsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 1.2 }}
           >
             <motion.div
@@ -331,14 +337,14 @@ const About = () => {
               whileHover={{ scale: 1.05 }}
             >
               <div className="h-px bg-emerald-400/50 w-16"></div>
-              <motion.span 
+              <motion.span
                 className="text-emerald-400 text-sm font-medium tracking-[0.2em] uppercase"
-                animate={{ 
+                animate={{
                   textShadow: [
                     "0 0 0px rgba(52, 211, 153, 0.5)",
                     "0 0 10px rgba(52, 211, 153, 0.5)",
-                    "0 0 0px rgba(52, 211, 153, 0.5)"
-                  ]
+                    "0 0 0px rgba(52, 211, 153, 0.5)",
+                  ],
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
@@ -351,6 +357,8 @@ const About = () => {
       </div>
     </section>
   );
-};
+});
+
+About.displayName = "About";
 
 export default About;

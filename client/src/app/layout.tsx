@@ -37,7 +37,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+      <body
+        className={`${inter.variable} antialiased`}
+        style={{ position: "relative" }}
+      >
+        {children}
+      </body>
     </html>
   );
 }

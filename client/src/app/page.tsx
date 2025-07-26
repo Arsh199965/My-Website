@@ -6,10 +6,14 @@ import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Navigation from "@/components/Navigation";
+import PerformanceMonitor from "@/components/PerformanceMonitor";
+import MagneticCursor from "@/components/MagneticCursor";
 
 export default function Home() {
   return (
-    <div className=" bg-white text-white">
+    <div className="bg-white text-white" style={{ position: "relative" }}>
+      <PerformanceMonitor />
+      <MagneticCursor />
       <Navigation />
 
       {/* Main Content */}
