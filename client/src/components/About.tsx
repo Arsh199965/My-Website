@@ -7,11 +7,11 @@ import { useEffect, useState, memo } from "react";
 const About = memo(() => {
   const [ref, inView] = useInView({
     triggerOnce: false, // Changed to false so animations replay when coming back into view
-    threshold: 0.3,
+    threshold: 0.1,
   });
   const [cardsref, cardsInView] = useInView({
     triggerOnce: false,
-    threshold: 0.3,
+    threshold: 0.1,
   });
   // State for particle positions to avoid hydration mismatch
   const [particlePositions, setParticlePositions] = useState<number[][]>([]);

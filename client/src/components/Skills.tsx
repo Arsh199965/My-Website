@@ -7,11 +7,11 @@ import { memo, useMemo } from "react";
 const Skills = memo(() => {
   const [ref, inView] = useInView({
     triggerOnce: false,
-    threshold: 0.3,
+    threshold: 0.1,
   });
   const [cardsref, cardsInView] = useInView({
     triggerOnce: false,
-    threshold: 0.3,
+    threshold: 0.1,
   });
   // All skills in a flat array for the conveyor belt - memoized
   const allSkills = useMemo(
