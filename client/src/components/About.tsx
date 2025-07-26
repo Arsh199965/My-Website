@@ -7,14 +7,14 @@ import useIsMobile from "../utils/useIsMobile";
 
 const About = memo(() => {
   const isMobile = useIsMobile();
-  
+
   const [ref, inView] = useInView({
     triggerOnce: false, // Changed to false so animations replay when coming back into view
     threshold: 0.1,
   });
   const [cardsref, cardsInView] = useInView({
     triggerOnce: isMobile, // Trigger once on mobile, multiple times on desktop
-    threshold: 0.1,
+    threshold: isMobile? 0.01: 0.1,
   });
   // State for particle positions to avoid hydration mismatch
   const [particlePositions, setParticlePositions] = useState<number[][]>([]);

@@ -7,14 +7,14 @@ import useIsMobile from "../utils/useIsMobile";
 
 const Skills = memo(() => {
   const isMobile = useIsMobile();
-  
+
   const [ref, inView] = useInView({
     triggerOnce: false,
     threshold: 0.1,
   });
   const [cardsref, cardsInView] = useInView({
     triggerOnce: isMobile, // Trigger once on mobile, multiple times on desktop
-    threshold: 0.1,
+    threshold: isMobile ? 0.01 : 0.1,
   });
   // All skills in a flat array for the conveyor belt - memoized
   const allSkills = useMemo(
