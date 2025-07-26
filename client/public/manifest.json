@@ -1,0 +1,26 @@
+{
+  "name": "Arsh Ahmad - Creative Developer Portfolio",
+  "short_name": "Arsh Ahmad",
+  "description": "Creative developer crafting innovative digital solutions and building impactful applications.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#34d399",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "48x48",
+      "type": "image/svg+xml"
+    }
+  ]
+}
